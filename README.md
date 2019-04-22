@@ -29,22 +29,22 @@ Run `docker-compose up` from the project directory to set up the Postgres DB.
 
 [Postico](https://eggerapps.at/postico/) is a great Postgres client for Mac.
 
-The DB will be running at `localhost:5432` with username `dev` and password `password`.
+The DB will be running at `localhost:5432` with username `dev` and password `password`. The database name is `tilr_interview`.
+
+### Migrate and seed
+
+`cd` into the `api` directory and run `npm install` then `npm run db:refresh` to run the migrations and seed the database.
 
 ### API
 
-`cd` into the `api` directory and run `npm run dev` to start the Node API.
+In the `api` directory run `npm run dev` to start the Node API.
 
 It'll be useful to look at the [knex docs](https://knexjs.org/) if you've never used it before.
 If you'd like to add [Bookshelf](https://bookshelfjs.org/) or [Objection](https://vincit.github.io/objection.js/) on top of knex you're more than welcome to (we use Objection at Tilr).
 
 ### React app
 
-`cd` into the `client` directory and run `npm start` to start the React app.
-
-### Migrate and seed
-
-`cd` back into the `api` directory and run `npm run db:refresh` to run the migrations and seed the database.
+`cd` into the `client` directory and run `npm install` then `npm start` to start the React app.
 
 ## Submitting the test
 
