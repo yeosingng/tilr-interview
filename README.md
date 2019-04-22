@@ -29,7 +29,7 @@ Run `docker-compose up` from the project directory to set up the Postgres DB.
 
 [Postico](https://eggerapps.at/postico/) is a great Postgres client for Mac.
 
-The DB will be running at `localhost:5432` with username `dev` and password `password`.
+The DB will be running at `localhost:5432` with username `dev` and password `password`. The database name is `tilr_interview`.
 
 ### Migrate and seed
 
