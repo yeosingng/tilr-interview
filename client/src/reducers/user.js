@@ -6,6 +6,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.USER_LOGIN:
+      return { ...state, login: true }
     default:
       return state
   }

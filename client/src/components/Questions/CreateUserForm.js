@@ -22,27 +22,29 @@ class CreateUserForm extends Component {
     const password = this.state.password;
 
     return (
-      <form onSubmit={event => this.createUser(event)} className='login-form'>
-        <div>Username:</div>
-        <input
-          className='form-control'
-          onChange={({ target }) => this.setState({ username: target.value })}
-        />
-        <div>Password:</div>
-        <input
-          className='form-control'
-          type='password'
-          onChange={({ target }) => this.setState({ password: target.value })}
-        />
-        <button
-          className='btn btn-primary'
-          disabled={username === '' || password === ''}
-          type='submit'
-        >
-        Login
-        </button>
-      </form>
-
+      <div>
+        <h2>Create A New User</h2>
+        <form onSubmit={event => this.createUser(event)} className='login-form'>
+          <div>Username:</div>
+          <input
+            className='form-control'
+            onChange={({ target }) => this.setState({ username: target.value })}
+          />
+          <div>Password:</div>
+          <input
+            className='form-control'
+            type='password'
+            onChange={({ target }) => this.setState({ password: target.value })}
+          />
+          <button
+            className='btn btn-primary'
+            disabled={username === '' || password === ''}
+            type='submit'
+          >
+          Create
+          </button>
+        </form>
+      </div>
     )
   }
 }

@@ -1,7 +1,18 @@
 const express = require('express')
 const knex = require('knex')(require('./knexfile'))
+const crypto = require('crypto')
 
 const router = express.Router()
+
+function generateSalt () {
+  return crypto.randomBytes(16).toString('base64')
+}
+
+function generateHash (password, salt) {
+  var hash = crypto.createHmac('sha512', salt);
+  hash.update(password);
+  return hash.digest('base64');
+}
 
 router.get('/questions', async (req, res) => {
   try {
@@ -25,10 +36,27 @@ router.post('/questions', async (req, res) => {
 
 router.post('/users', async(req, res) => {
   try {
-    const data = req.body
-    console.log(data)
+    const salt = generateSalt()
+    const hash = generateHash(req.body.password, salt)
+    const data = {name: req.body.name, salt: salt, hash: hash}
     const user = await knex('users').insert(data, '*')
     res.json(question)
+  } catch (err) {
+    res.status(500)
+  }
+})
+
+router.post('/login', async(req, res) => {
+  try {
+    const user = await knex('users').where({
+      name: req.body.name
+    }).first().then((row) => row)
+
+    if (user.hash !== generateHash(req.body.password, user.salt)){
+      return res.status(401).end("access denied");
+    }
+
+    res.send("User " + req.body.name + " has been signed in.")
   } catch (err) {
     res.status(500)
   }

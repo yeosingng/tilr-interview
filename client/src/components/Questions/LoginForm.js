@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { login } from '../../actions/user'
 
 class LoginForm extends Component {
 
@@ -10,9 +13,10 @@ class LoginForm extends Component {
     })
   }
 
-  Login(event) {
+  login(event) {
     event.preventDefault()
-    this.props.createUser(this.state.username, this.state.password)
+    this.props.login(this.state.username, this.state.password)
+    console.log(this.props.login)
   }
 
   render() {
@@ -20,7 +24,7 @@ class LoginForm extends Component {
     const password = this.state.password;
 
     return (
-      <form onSubmit={event => this.createUser(event)} className='login-form'>
+      <form onSubmit={event => this.login(event)} className='login-form'>
         <div>Username:</div>
         <input
           className='form-control'
@@ -38,9 +42,16 @@ class LoginForm extends Component {
         >
         Login
         </button>
+
+        <NavLink to='/createUser' className='nav-link'>New User? Create an account here.</NavLink>
       </form>
 
     )
   }
 }
-export default LoginForm;
+
+const mapDispatchToProps = {
+  login
+}
+
+export default connect(null, mapDispatchToProps)(LoginForm)
