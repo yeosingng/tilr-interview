@@ -40,7 +40,7 @@ router.post('/users', async(req, res) => {
     const hash = generateHash(req.body.password, salt)
     const data = {name: req.body.name, salt: salt, hash: hash}
     const user = await knex('users').insert(data, '*')
-    res.json(question)
+    res.json(user)
   } catch (err) {
     res.status(500)
   }
@@ -56,7 +56,7 @@ router.post('/login', async(req, res) => {
       return res.status(401).end("access denied");
     }
 
-    res.send("User " + req.body.name + " has been signed in.")
+    res.json({msg: "User " + req.body.name + " has been signed in.", user: req.body.name, loggedIn: true})
   } catch (err) {
     res.status(500)
   }

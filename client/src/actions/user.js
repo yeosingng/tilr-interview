@@ -15,12 +15,12 @@ export const createUser = (username, password) => async (dispatch) => {
 
 export const login = (username, password) => async(dispatch) => {
   try {
-    const msg = await axios.post('/login', {
+    const user = await axios.post('/login', {
         name: username,
         password: password
     });
 
-    dispatch({ type: actionTypes.USER_LOGIN, payload: msg })
+    dispatch({ type: actionTypes.USER_LOGIN, payload: user })
   } catch (err) {
     console.log(err)
   }

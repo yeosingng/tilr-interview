@@ -16,12 +16,17 @@ class LoginForm extends Component {
   login(event) {
     event.preventDefault()
     this.props.login(this.state.username, this.state.password)
-    console.log(this.props.login)
+
   }
 
   render() {
     const username = this.state.username;
     const password = this.state.password;
+    const login = this.props.loggedIn;
+
+    if (login){
+      this.props.history.push('/userpage')
+    }
 
     return (
       <form onSubmit={event => this.login(event)} className='login-form'>
@@ -45,13 +50,16 @@ class LoginForm extends Component {
 
         <NavLink to='/createUser' className='nav-link'>New User? Create an account here.</NavLink>
       </form>
-
     )
   }
 }
+
+const mapStateToProps = ({ user }) => ({
+  loggedIn: user.loggedIn
+})
 
 const mapDispatchToProps = {
   login
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
