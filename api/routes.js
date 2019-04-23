@@ -1,6 +1,7 @@
 const express = require('express')
 const knex = require('knex')(require('./knexfile'))
 const crypto = require('crypto')
+const session = require('express-session')
 
 const router = express.Router()
 
@@ -25,12 +26,23 @@ router.get('/questions', async (req, res) => {
 
 router.post('/questions', async (req, res) => {
   const { text } = req.body
-  console.log(text)
   try {
     const question = await knex('questions').insert({ text }, '*')
     res.json(question)
   } catch (err) {
     res.status(text ? 500 : 400)
+  }
+})
+
+router.post('/questions/answers', async (req, res) => {
+  try {
+    const body = req.body
+    const data = {question_id: body.question_id, user_id: body.user_id, is_yes: body.is_yes}
+    const answer = await knex('answers').insert(data)
+    console.log(answer)
+    res.json(answer)
+  } catch (err) {
+    res.status(answer ? 500 : 400)
   }
 })
 
@@ -56,7 +68,10 @@ router.post('/login', async(req, res) => {
       return res.status(401).end("access denied");
     }
 
-    res.json({msg: "User " + req.body.name + " has been signed in.", user: req.body.name, loggedIn: true})
+    res.json({msg: "User " + req.body.name + " has been signed in.",
+             user: req.body.name,
+             user_id: user.user_id,
+             loggedIn: true})
   } catch (err) {
     res.status(500)
   }

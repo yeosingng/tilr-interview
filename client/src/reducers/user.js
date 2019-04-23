@@ -2,17 +2,19 @@ import actionTypes from '../actions/actionTypes'
 
 const initialState = {
   loggedIn: false,
-  username: ''
+  username: '',
+  loginMsg: null,
+  user_id: null
 }
 
 export default (state = initialState, action) => {
-  console.log(action.payload)
   switch (action.type) {
     case actionTypes.USER_LOGIN:
-
-
-
-      return { ...state, loggedIn: true, username: action.payload.data.user }
+        console.log(action.payload.data.user)
+        return { ...state, loggedIn: true, username: action.payload.data.user, user_id: action.payload.data.user_id }
+    case actionTypes.LOGIN_FAILED:
+        console.log("here?")
+        return { ...state, loginMsg: "Username or Password is incorrect." }
     default:
       return state
   }

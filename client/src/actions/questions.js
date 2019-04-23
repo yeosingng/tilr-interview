@@ -20,3 +20,13 @@ export const createQuestion = text => async (dispatch) => {
     console.log(err)
   }
 }
+
+export const answerQuestion = (question_id, user_id, is_yes) => async (dispatch) => {
+  try {
+    const { data } = await axios.post('/questions/answers', { question_id, user_id, is_yes })
+    dispatch({ type: actionTypes.QUESTION_ANSWERED, payload: data })
+    dispatch(push('/'))
+  } catch (err) {
+    console.log(err)
+  }
+}

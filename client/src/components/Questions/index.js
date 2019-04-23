@@ -16,9 +16,9 @@ const Questions = () => (
       <NavBar />
     </div>
     <Switch>
-      <Route path='/' component={QuestionList} exact />
+      <Route path='/' component={LoginForm} exact />
       <Route path='/create' component={QuestionForm} />
-      <Route path='/login' component={LoginForm} />
+      <Route path='/questions' component={QuestionList} />
       <Route path='/createUser' component={CreateUserForm} />
       <Route path='/userpage' component={UserPage} />
     </Switch>

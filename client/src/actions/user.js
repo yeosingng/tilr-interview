@@ -19,9 +19,9 @@ export const login = (username, password) => async(dispatch) => {
         name: username,
         password: password
     });
-
     dispatch({ type: actionTypes.USER_LOGIN, payload: user })
   } catch (err) {
     console.log(err)
+    dispatch({ type: actionTypes.LOGIN_FAILED, payload: {}})
   }
 }

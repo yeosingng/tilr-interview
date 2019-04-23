@@ -4,5 +4,7 @@ export default createTypes(
   'QUESTIONS_CREATE',
   'QUESTIONS_FETCH_ALL',
   'GET_USER',
-  'USER_LOGIN'
+  'USER_LOGIN',
+  'LOGIN_FAILED',
+  'QUESTION_ANSWERED'
 )

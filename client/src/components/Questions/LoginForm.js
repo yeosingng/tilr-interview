@@ -16,20 +16,23 @@ class LoginForm extends Component {
   login(event) {
     event.preventDefault()
     this.props.login(this.state.username, this.state.password)
-
   }
 
   render() {
     const username = this.state.username;
     const password = this.state.password;
     const login = this.props.loggedIn;
+    const loginMsg = this.props.loginMsg;
 
     if (login){
       this.props.history.push('/userpage')
     }
 
+    console.log(loginMsg)
+
     return (
       <form onSubmit={event => this.login(event)} className='login-form'>
+        {loginMsg !== '' ? <h1>{loginMsg}</h1> : null}
         <div>Username:</div>
         <input
           className='form-control'
@@ -47,7 +50,6 @@ class LoginForm extends Component {
         >
         Login
         </button>
-
         <NavLink to='/createUser' className='nav-link'>New User? Create an account here.</NavLink>
       </form>
     )
@@ -55,7 +57,8 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = ({ user }) => ({
-  loggedIn: user.loggedIn
+  loggedIn: user.loggedIn,
+  loginMsg: user.loginMsg
 })
 
 const mapDispatchToProps = {

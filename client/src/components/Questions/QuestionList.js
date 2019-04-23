@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchQuestions } from '../../actions/questions'
-import QuestionBody from './QuestionBody'
+import QuestionCard from './QuestionCard'
 
 class QuestionList extends Component {
 
@@ -10,24 +10,22 @@ class QuestionList extends Component {
   }
 
   render() {
+    const isLoggedIn = this.props.isLoggedIn
+
     return (
       <div className='question-list'>
         <h3>Recently Added</h3>
         {this.props.questions.map(question => (
-          <div className='card' key={question.question_id}>
-            <div className='card-body'>
-              <h5 className='card-title'>{question.text}</h5>
-              <QuestionBody />
-            </div>
-          </div>
+          <QuestionCard key={question.question_id} question={question}/>
         ))}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ questions }) => ({
-  questions: questions.all
+const mapStateToProps = ({ questions, user }) => ({
+  questions: questions.all,
+  isLoggedIn: user.loggedIn
 })
 
 const mapDispatchToProps = {

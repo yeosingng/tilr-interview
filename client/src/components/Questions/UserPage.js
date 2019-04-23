@@ -6,9 +6,7 @@ class UserPage extends Component {
     return (
       <div>
         <h3>You are logged in as {this.props.username} !</h3>
-        <button
-          className='btn btn-primary'
-        >
+        <button className='btn btn-primary'>
         Logout
         </button>
       </div>
