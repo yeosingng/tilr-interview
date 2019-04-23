@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchQuestions } from '../../actions/questions'
+import QuestionBody from './QuestionBody'
 
 class QuestionList extends Component {
+
   componentDidMount() {
     this.props.fetchQuestions()
   }
@@ -15,10 +17,7 @@ class QuestionList extends Component {
           <div className='card' key={question.question_id}>
             <div className='card-body'>
               <h5 className='card-title'>{question.text}</h5>
-              <div className='card-body'>
-                <button className='btn btn-success' style={{ marginRight: 10 }}>Yes</button>
-                <button className='btn btn-danger'>No</button>
-              </div>
+              <QuestionBody />
             </div>
           </div>
         ))}
