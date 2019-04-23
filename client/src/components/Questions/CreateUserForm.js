@@ -8,19 +8,17 @@ class CreateUserForm extends Component {
     super(props)
     this.state = ({
       username: '',
-      displayName: '',
       password: ''
     })
   }
 
   createUser(event) {
     event.preventDefault()
-    this.props.createUser(this.state.username, this.state.displayName, this.state.password)
+    this.props.createUser(this.state.username, this.state.password)
   }
 
   render() {
     const username = this.state.username;
-    const displayName = this.state.displayName;
     const password = this.state.password;
 
     return (

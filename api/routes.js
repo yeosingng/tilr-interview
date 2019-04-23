@@ -14,7 +14,7 @@ router.get('/questions', async (req, res) => {
 
 router.post('/questions', async (req, res) => {
   const { text } = req.body
-  console.log(req.body)
+  console.log(text)
   try {
     const question = await knex('questions').insert({ text }, '*')
     res.json(question)
@@ -24,11 +24,11 @@ router.post('/questions', async (req, res) => {
 })
 
 router.post('/users', async(req, res) => {
-  const { user } = req.body
-  console.log(req.body)
   try {
-    const user = await knex('users').insert({ user }, '*')
-    res.json('success')
+    const data = req.body
+    console.log(data)
+    const user = await knex('users').insert(data, '*')
+    res.json(question)
   } catch (err) {
     res.status(500)
   }
