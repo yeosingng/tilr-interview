@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { answerQuestion, fetchAnswers } from '../../actions/questions'
+import { Doughnut } from 'react-chartjs-2'
 
 class QuestionCard extends Component {
 
@@ -24,21 +25,47 @@ class QuestionCard extends Component {
     const question = this.props.question
     const answers = this.props.answers.filter(answer => answer.question_id === question.question_id)
     const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
+    const yesAnswers = answers.filter(answer => answer.is_yes === true).length
+    const noAnswers = answers.filter(answer => answer.is_yes === false).length
 
+    console.log(answers)
+
+    const chartData = {
+        labels: ["Yes", "No"],
+        datasets: [
+          {
+            data: [yesAnswers, noAnswers ],
+            backgroundColor: [
+                    "#28A745",
+                    "#DC3545",
+                ]
+          }
+        ]
+    }
     var buttonPrompts;
 
     if (userAnswer.length === 0) {
       buttonPrompts = (
-        <div>
+        <div className='button-container'>
           <button className='btn btn-success' style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
           <button className='btn btn-danger' onClick={event => this.onNoClicked(event)}>No</button>
         </div>
       )
     } else {
       if (userAnswer[0].is_yes){
-        buttonPrompts = <div>You have answered Yes!</div>
+        buttonPrompts = (
+          <div className='button-container'>
+            <button className='btn btn-success' disabled={true} style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
+            <button className='btn btn-danger' onClick={event => this.onNoClicked(event)}>No</button>
+          </div>
+        )
       } else {
-        buttonPrompts = <div>You have answered No!</div>
+        buttonPrompts = (
+          <div className='button-container'>
+            <button className='btn btn-success' style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
+            <button className='btn btn-danger' disabled={true} onClick={event => this.onNoClicked(event)}>No</button>
+          </div>
+        )
       }
     }
 
@@ -46,7 +73,12 @@ class QuestionCard extends Component {
       <div className='card'>
         <div className='card-body'>
           <h5 className='card-title'>{question.text}</h5>
-          {buttonPrompts}
+          <div className='card-content'>
+            {buttonPrompts}
+            <div className='donut'>
+              <Doughnut className='btn btn-danger' data={chartData} options={{maintainAspectRatio: false}} />
+            </div>
+          </div>
         </div>
       </div>
     )

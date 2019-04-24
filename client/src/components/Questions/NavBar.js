@@ -14,10 +14,7 @@ class NavBar extends Component {
         </ul>
       )
     } else {
-      return (
-        <ul className='nav nav-pills questions__nav'>
-        </ul>
-      )
+      return (<ul className='nav nav-pills questions__nav'></ul>)
     }
   }
 }
