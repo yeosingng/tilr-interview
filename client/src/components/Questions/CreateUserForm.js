@@ -15,6 +15,7 @@ class CreateUserForm extends Component {
   createUser(event) {
     event.preventDefault()
     this.props.createUser(this.state.username, this.state.password)
+    this.props.history.push('/')
   }
 
   render() {

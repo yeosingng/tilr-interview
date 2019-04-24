@@ -13,6 +13,8 @@ export default (state = initialState, action) => {
         return { ...state, loggedIn: true, username: action.payload.data.user, user_id: action.payload.data.user_id }
     case actionTypes.LOGIN_FAILED:
         return { ...state, loginMsg: "Username or Password is incorrect." }
+    case actionTypes.CREATE_USER:
+        return { ...state, loginMsg: "User is created" }
     default:
       return state
   }

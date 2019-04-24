@@ -7,7 +7,7 @@ export const createUser = (username, password) => async (dispatch) => {
       name: username,
       password: password
     });
-    dispatch({ type: actionTypes.GET_USER, payload: user })
+    dispatch({ type: actionTypes.CREATE_USER, payload: user })
   } catch (err) {
     console.log(err)
   }
