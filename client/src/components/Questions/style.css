@@ -19,9 +19,10 @@
 
 .donut {
   display: flex;
-  max-height: 150px;
   justify-content: flex-end;
-  width: 100%;
+  margin-left: auto;
+  flex-grow: 1;
+  width: 50px;
 }
 
 .button-container {
@@ -29,6 +30,21 @@
   align-items: flex-start;
 }
 
+.card-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-title {
+  display: flex;
+}
+
 .card-content {
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.filler {
+
 }

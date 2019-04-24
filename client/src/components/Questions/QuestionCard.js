@@ -72,12 +72,13 @@ class QuestionCard extends Component {
     return (
       <div className='card'>
         <div className='card-body'>
-          <h5 className='card-title'>{question.text}</h5>
           <div className='card-content'>
+            <h5 className='card-title'>{question.text}</h5>
             {buttonPrompts}
-            <div className='donut'>
-              <Doughnut className='btn btn-danger' data={chartData} options={{maintainAspectRatio: false}} />
-            </div>
+          </div>
+          <div className='filler'></div>
+          <div className='donut'>
+            <Doughnut data={chartData} options={{responsive: false, maintainAspectRatio: false}} />
           </div>
         </div>
       </div>
