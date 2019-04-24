@@ -1,47 +1,45 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { answerQuestion } from '../../actions/questions'
+import { answerQuestion, fetchAnswers } from '../../actions/questions'
 
 class QuestionCard extends Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      answer: null
-    }
     this.onYesClicked = this.onYesClicked.bind(this);
     this.onNoClicked = this.onNoClicked.bind(this);
   }
 
-  onYesClicked(){
+  onYesClicked(event){
+    event.preventDefault()
     this.props.answerQuestion(this.props.question.question_id, this.props.userid, true)
-    this.setState({
-      answer: true
-    })
   }
 
-  onNoClicked(){
-    this.setState({
-      answer: false
-    })
+  onNoClicked(event){
+    event.preventDefault()
+    this.props.answerQuestion(this.props.question.question_id, this.props.userid, false)
   }
 
   render() {
     const question = this.props.question
-    console.log(question)
+    const answers = this.props.answers.filter(answer => answer.question_id === question.question_id)
+    const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
+
     var buttonPrompts;
 
-    if (this.state.answer == null) {
+    if (userAnswer.length === 0) {
       buttonPrompts = (
         <div>
           <button className='btn btn-success' style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
-          <button className='btn btn-danger' onClick={this.onNoClicked}>No</button>
+          <button className='btn btn-danger' onClick={event => this.onNoClicked(event)}>No</button>
         </div>
       )
-    } else if (this.state.answer){
-      buttonPrompts = <div>You have answered Yes!</div>
     } else {
-      buttonPrompts = <div>You have answered No!</div>
+      if (userAnswer[0].is_yes){
+        buttonPrompts = <div>You have answered Yes!</div>
+      } else {
+        buttonPrompts = <div>You have answered No!</div>
+      }
     }
 
     return (
@@ -55,10 +53,10 @@ class QuestionCard extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ questions, user }) => ({
   loggedIn: user.loggedIn,
-  username: user.username,
-  userid: user.user_id
+  userid: user.user_id,
+  answers: questions.answers
 })
 
 const mapDispatchToProps = {

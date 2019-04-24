@@ -6,5 +6,6 @@ export default createTypes(
   'GET_USER',
   'USER_LOGIN',
   'LOGIN_FAILED',
-  'QUESTION_ANSWERED'
+  'QUESTION_ANSWERED',
+  'ANSWERS_FETCH_ALL'
 )

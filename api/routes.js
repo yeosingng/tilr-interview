@@ -34,13 +34,22 @@ router.post('/questions', async (req, res) => {
   }
 })
 
-router.post('/questions/answers', async (req, res) => {
+router.get('/questions/answers', async (req, res) => {
+  try {
+    const answers = await knex.select().table('answers')
+    res.json(answers)
+  } catch (err) {
+    res.status(answer ? 500 : 400)
+  }
+})
+
+router.put('/questions/answers', async (req, res) => {
   try {
     const body = req.body
     const data = {question_id: body.question_id, user_id: body.user_id, is_yes: body.is_yes}
     const answer = await knex('answers').insert(data)
-    console.log(answer)
-    res.json(answer)
+    const answers = await knex.select().table('answers')
+    res.json(answers)
   } catch (err) {
     res.status(answer ? 500 : 400)
   }

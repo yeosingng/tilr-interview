@@ -28,8 +28,6 @@ class LoginForm extends Component {
       this.props.history.push('/userpage')
     }
 
-    console.log(loginMsg)
-
     return (
       <form onSubmit={event => this.login(event)} className='login-form'>
         {loginMsg !== '' ? <h1>{loginMsg}</h1> : null}
@@ -41,6 +39,7 @@ class LoginForm extends Component {
         <div>Password:</div>
         <input
           className='form-control'
+          type='password'
           onChange={({ target }) => this.setState({ password: target.value })}
         />
         <button
