@@ -75,9 +75,15 @@ router.post('/users', async(req, res) => {
 
 router.post('/login', async(req, res) => {
   try {
-    const user = await knex('users').where({
+    console.log("should reach here")
+    var user = await knex('users').where({
       name: req.body.name
     }).first().then((row) => row)
+
+    if (user === undefined){
+      console.log("here!")
+      res.status(401).send("access denied");
+    }
 
     if (user.hash !== generateHash(req.body.password, user.salt)){
       return res.status(401).end("access denied");

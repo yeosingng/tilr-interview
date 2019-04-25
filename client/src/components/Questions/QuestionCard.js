@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { answerQuestion, fetchAnswers } from '../../actions/questions'
+import { answerQuestion } from '../../actions/questions'
 import { Doughnut } from 'react-chartjs-2'
 
 class QuestionCard extends Component {

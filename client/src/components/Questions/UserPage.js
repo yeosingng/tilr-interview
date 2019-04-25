@@ -12,7 +12,7 @@ class UserPage extends Component {
 
   render() {
     const answeredQuestionsId = this.props.answers
-                                  .filter(answer => answer.user_id == this.props.userid)
+                                  .filter(answer => answer.user_id === this.props.userid)
                                   .map(answer => answer.question_id);
 
     const answeredQuestions = this.props.questions.filter(question => answeredQuestionsId.includes(question.question_id ))
