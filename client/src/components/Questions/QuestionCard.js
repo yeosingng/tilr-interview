@@ -2,14 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { answerQuestion } from '../../actions/questions'
 import { Doughnut } from 'react-chartjs-2'
+import CountUp from 'react-countup'
 
 class QuestionCard extends Component {
-
-  constructor(props){
-    super(props);
-    this.onYesClicked = this.onYesClicked.bind(this);
-    this.onNoClicked = this.onNoClicked.bind(this);
-  }
 
   onYesClicked(event){
     event.preventDefault()
@@ -27,6 +22,8 @@ class QuestionCard extends Component {
     const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
     const yesAnswers = answers.filter(answer => answer.is_yes === true).length
     const noAnswers = answers.filter(answer => answer.is_yes === false).length
+    const yesPercentage = (yesAnswers / answers.length) * 100
+    const noPercentage = (noAnswers / answers.length) * 100
     var disableYes = false
     var disableNo = false
 
@@ -57,12 +54,16 @@ class QuestionCard extends Component {
           <div className='card-content'>
             <h5 className='card-title'>{question.text}</h5>
             <div className='button-container'>
-              <button className='btn btn-success' disabled={disableYes} style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
+              <button className='btn btn-success' disabled={disableYes} style={{ marginRight: 10 }} onClick={event => this.onYesClicked(event)}>Yes</button>
               <button className='btn btn-danger' disabled={disableNo} onClick={event => this.onNoClicked(event)}>No</button>
             </div>
           </div>
           <div className='filler'></div>
-          <div className='donut'>
+          <div className='data-container'>
+            <div className="percentages-container">
+              <CountUp start={0} end={yesPercentage} style={{ marginBottom: 10 }} prefix="Yes: " suffix="%" />
+              <CountUp start={0} end={noPercentage} prefix="No: " suffix="%"/>
+            </div>
             <Doughnut data={chartData} options={{responsive: false, maintainAspectRatio: false, legend: {display: false}}} />
           </div>
         </div>

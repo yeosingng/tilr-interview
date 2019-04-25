@@ -17,7 +17,7 @@
   grid-template-columns: 1fr;
   margin-top: 20px; }
 
-.donut {
+.data-container {
   display: flex;
   justify-content: flex-end;
   margin-left: auto;
@@ -43,5 +43,11 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: center;
+}
+
+.percentages-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
