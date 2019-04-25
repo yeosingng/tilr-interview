@@ -27,8 +27,16 @@ class QuestionCard extends Component {
     const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
     const yesAnswers = answers.filter(answer => answer.is_yes === true).length
     const noAnswers = answers.filter(answer => answer.is_yes === false).length
+    var disableYes = false
+    var disableNo = false
 
-    console.log(answers)
+    if (userAnswer.length !== 0) {
+      if (userAnswer[0].is_yes){
+        disableYes = true
+      } else {
+        disableNo = true
+      }
+    }
 
     const chartData = {
         labels: ["Yes", "No"],
@@ -42,43 +50,20 @@ class QuestionCard extends Component {
           }
         ]
     }
-    var buttonPrompts;
-
-    if (userAnswer.length === 0) {
-      buttonPrompts = (
-        <div className='button-container'>
-          <button className='btn btn-success' style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
-          <button className='btn btn-danger' onClick={event => this.onNoClicked(event)}>No</button>
-        </div>
-      )
-    } else {
-      if (userAnswer[0].is_yes){
-        buttonPrompts = (
-          <div className='button-container'>
-            <button className='btn btn-success' disabled={true} style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
-            <button className='btn btn-danger' onClick={event => this.onNoClicked(event)}>No</button>
-          </div>
-        )
-      } else {
-        buttonPrompts = (
-          <div className='button-container'>
-            <button className='btn btn-success' style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
-            <button className='btn btn-danger' disabled={true} onClick={event => this.onNoClicked(event)}>No</button>
-          </div>
-        )
-      }
-    }
 
     return (
       <div className='card'>
         <div className='card-body'>
           <div className='card-content'>
             <h5 className='card-title'>{question.text}</h5>
-            {buttonPrompts}
+            <div className='button-container'>
+              <button className='btn btn-success' disabled={disableYes} style={{ marginRight: 10 }} onClick={this.onYesClicked}>Yes</button>
+              <button className='btn btn-danger' disabled={disableNo} onClick={event => this.onNoClicked(event)}>No</button>
+            </div>
           </div>
           <div className='filler'></div>
           <div className='donut'>
-            <Doughnut data={chartData} options={{responsive: false, maintainAspectRatio: false}} />
+            <Doughnut data={chartData} options={{responsive: false, maintainAspectRatio: false, legend: {display: false}}} />
           </div>
         </div>
       </div>

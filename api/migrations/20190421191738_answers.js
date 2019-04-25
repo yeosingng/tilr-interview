@@ -13,6 +13,8 @@ exports.up = function (knex) {
     table
       .boolean('is_yes')
       .notNullable()
+    table
+      .unique(['question_id', 'user_id'])
   })
 }
 

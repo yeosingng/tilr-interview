@@ -46,8 +46,14 @@ router.get('/questions/answers', async (req, res) => {
 router.put('/questions/answers', async (req, res) => {
   try {
     const body = req.body
-    const data = {question_id: body.question_id, user_id: body.user_id, is_yes: body.is_yes}
-    const answer = await knex('answers').insert(data)
+    const question_id = body.question_id
+    const user_id = body.user_id
+    const is_yes = body.is_yes
+
+    const answer = await knex.raw(
+      "INSERT INTO answers(question_id, user_id, is_yes) values (?, ?, ?) ON CONFLICT (question_id, user_id) DO UPDATE SET is_yes=? WHERE answers.question_id=? AND answers.user_id=?;",
+     [question_id, user_id, is_yes, is_yes, question_id, user_id]);
+
     const answers = await knex.select().table('answers')
     res.json(answers)
   } catch (err) {
