@@ -30,12 +30,14 @@ class CreateUserForm extends Component {
           <input
             className='form-control'
             onChange={({ target }) => this.setState({ username: target.value })}
+            style={{ marginBottom: 10 }}
           />
           <div>Password:</div>
           <input
             className='form-control'
             type='password'
             onChange={({ target }) => this.setState({ password: target.value })}
+            style={{ marginBottom: 10 }}
           />
           <button
             className='btn btn-primary'

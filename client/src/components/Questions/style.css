@@ -22,31 +22,32 @@
   justify-content: flex-end;
   margin-left: auto;
   flex-grow: 1;
-  width: 50px;
-}
+  width: 50px; }
 
 .button-container {
   display: flex;
-  align-items: flex-end;
-}
+  align-items: flex-end; }
+
 
 .card-body {
   display: flex;
-  justify-content: space-between;
-}
+  justify-content: space-between; }
 
 .card-title {
-  display: flex;
-}
+  display: flex; }
 
 .card-content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
-}
+  justify-content: center; }
 
 .percentages-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+
+.submitText-form {
   display: flex;
   flex-direction: column;
   justify-content: center;

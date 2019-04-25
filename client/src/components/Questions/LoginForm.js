@@ -21,12 +21,7 @@ class LoginForm extends Component {
   render() {
     const username = this.state.username;
     const password = this.state.password;
-    const login = this.props.loggedIn;
     const loginMsg = this.props.loginMsg;
-
-    if (login){
-      this.props.history.push('/userpage')
-    }
 
     return (
       <form onSubmit={event => this.login(event)} className='login-form'>
@@ -35,12 +30,14 @@ class LoginForm extends Component {
         <input
           className='form-control'
           onChange={({ target }) => this.setState({ username: target.value })}
+          style={{ marginBottom: 10 }}
         />
         <div>Password:</div>
         <input
           className='form-control'
           type='password'
           onChange={({ target }) => this.setState({ password: target.value })}
+          style={{ marginBottom: 10 }}
         />
         <button
           className='btn btn-primary'
@@ -49,7 +46,7 @@ class LoginForm extends Component {
         >
         Login
         </button>
-        <NavLink to='/createUser' className='nav-link'>New User? Create an account here.</NavLink>
+        <NavLink to='/createUser' className='nav-link' style={{ paddingLeft: 0 }}>New User? Create an account here.</NavLink>
       </form>
     )
   }

@@ -9,7 +9,6 @@ class QuestionList extends Component {
   componentDidMount() {
     this.props.fetchQuestions()
     this.props.fetchAnswers()
-    console.log(this.props.history)
   }
 
   render() {

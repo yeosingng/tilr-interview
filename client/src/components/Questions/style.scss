@@ -21,3 +21,38 @@
   grid-template-columns: 1fr;
   margin-top: 20px;
 }
+
+.data-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  flex-grow: 1;
+  width: 50px;
+}
+
+.button-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-title {
+  display: flex;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.percentages-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
