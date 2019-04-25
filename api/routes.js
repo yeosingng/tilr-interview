@@ -61,6 +61,28 @@ router.put('/questions/answers', async (req, res) => {
   }
 })
 
+router.put('/questions/answers/text', async (req, res) => {
+  try {
+    const body = req.body
+    const question_id = body.question_id
+    const user_id = body.user_id
+    const answerText = body.answer_text
+
+    console.log("aaaaaaaaaaaaaaaa")
+    console.log(question_id)
+    console.log(user_id)
+    console.log(answerText)
+
+    const answer = await knex('answers').where({question_id : question_id, user_id: user_id})
+                                        .update({text: answerText})
+
+    const answers = await knex.select().table('answers')
+    res.json(answers)
+  } catch (err) {
+    res.status(500)
+  }
+})
+
 router.post('/users', async(req, res) => {
   try {
     const salt = generateSalt()

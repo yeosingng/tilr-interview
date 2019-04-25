@@ -39,3 +39,13 @@ export const fetchAnswers = () => async (dispatch) => {
     console.log(err)
   }
 }
+
+export const addTextToAnswer = (question_id, user_id, answer_text) => async (dispatch) => {
+  try {
+    console.log("aaaaaaaaa")
+    const { data } = await axios.put('/questions/answers/text', { question_id, user_id, answer_text })
+    dispatch({ type: actionTypes.QUESTION_ANSWERED, payload: data.reverse() })
+  } catch (err) {
+    console.log(err)
+  }
+}

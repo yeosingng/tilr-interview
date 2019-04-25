@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { answerQuestion } from '../../actions/questions'
+import { answerQuestion, addTextToAnswer } from '../../actions/questions'
 import { Doughnut } from 'react-chartjs-2'
 import CountUp from 'react-countup'
 
@@ -26,10 +26,16 @@ class QuestionCard extends Component {
   }
 
   onAddTextClicked(){
-    console.log("clicked")
     this.setState({
       submitTextOpen: !this.state.submitTextOpen
     })
+  }
+
+  submitTextComment(event){
+    console.log("wtf?")
+
+    event.preventDefault()
+    this.props.addTextToAnswer(this.props.question.question_id, this.props.userid, this.state.answerText)
   }
 
   render() {
@@ -41,6 +47,8 @@ class QuestionCard extends Component {
     var yesPercentage;
     var noPercentage;
 
+    console.log(userAnswer)
+    console.log(userAnswer.text)
     if (answers.length === 0){
       yesPercentage = 0;
       noPercentage = 0;
@@ -73,7 +81,7 @@ class QuestionCard extends Component {
         ]
     }
 
-    const submitTextForm = (<form onSubmit={console.log("ok")} className='submitText-form'>
+    const submitTextForm = (<form onSubmit={event => this.submitTextComment(event)} className='submitText-form'>
       <div>Text:</div>
       <input
         className='form-control'
@@ -82,13 +90,10 @@ class QuestionCard extends Component {
       />
       <button
         className='btn btn-primary'
-        type='submit'
       >
       Submit
       </button>
     </form>)
-
-    console.log(this.state.answerText)
 
     return (
       <div className='card'>
@@ -99,7 +104,10 @@ class QuestionCard extends Component {
               <button className='btn btn-success' disabled={disableYes} style={{ marginRight: 10 }} onClick={event => this.onYesClicked(event)}>Yes</button>
               <button className='btn btn-danger' disabled={disableNo} onClick={event => this.onNoClicked(event)}>No</button>
             </div>
-            {userAnswer.length !== 0 ? <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide" : "Add Text"}</div> : null}
+            {userAnswer.length !== 0 ?
+               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide" : "Add Text"}</div>
+               : null
+            }
           </div>
           <div className='filler'></div>
           <div className='data-container'>
@@ -123,7 +131,8 @@ const mapStateToProps = ({ questions, user }) => ({
 })
 
 const mapDispatchToProps = {
-  answerQuestion
+  answerQuestion,
+  addTextToAnswer
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionCard);
