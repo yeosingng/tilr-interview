@@ -24,8 +24,6 @@ class LoginForm extends Component {
     const login = this.props.loggedIn;
     const loginMsg = this.props.loginMsg;
 
-    console.log(loginMsg)
-
     if (login){
       this.props.history.push('/userpage')
     }
