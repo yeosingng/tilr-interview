@@ -1,58 +1,61 @@
-.questions {
-  &__sticky {
-    background-color: white;
-    border-bottom: 1px rgb(139, 139, 139) solid;
-    margin-bottom: 30px;
-    padding: 30px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-}
+.questions__sticky {
+  background-color: white;
+  border-bottom: 1px #8b8b8b solid;
+  margin-bottom: 30px;
+  padding: 30px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1; }
 
 .question-form {
   display: grid;
-  grid-row-gap: 30px;
-}
+  grid-row-gap: 30px; }
 
 .question-list {
   display: grid;
   grid-row-gap: 30px;
   grid-template-columns: 1fr;
-  margin-top: 20px;
-}
+  margin-top: 20px; }
 
 .data-container {
   display: flex;
   justify-content: flex-end;
   margin-left: auto;
   flex-grow: 1;
-  width: 50px;
-}
+  width: 50px; }
 
 .button-container {
   display: flex;
-  align-items: flex-end;
-}
+  align-items: flex-end; }
 
 .card-body {
   display: flex;
-  justify-content: space-between;
-}
+  justify-content: space-between; }
 
 .card-title {
-  display: flex;
-}
+  display: flex; }
 
 .card-content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
-}
+  justify-content: center; }
 
 .percentages-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; }
+
+.text-answers {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px 0px 20px; }
+
+.comment-list {
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);}
+
+.submitText-form {
+  margin-bottom: 20px;
 }

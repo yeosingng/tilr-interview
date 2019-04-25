@@ -28,7 +28,6 @@
   display: flex;
   align-items: flex-end; }
 
-
 .card-body {
   display: flex;
   justify-content: space-between; }
@@ -47,8 +46,15 @@
   flex-direction: column;
   justify-content: center; }
 
-.submitText-form {
+.text-answers {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
+  margin: 0px 20px 0px 20px; }
+
+.comment-list {
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125); }
+
+.submitText-form {
+  margin-bottom: 20px; }

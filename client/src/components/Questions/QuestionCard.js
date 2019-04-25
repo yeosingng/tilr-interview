@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { answerQuestion, addTextToAnswer } from '../../actions/questions'
 import { Doughnut } from 'react-chartjs-2'
 import CountUp from 'react-countup'
+import CommentList from './CommentList'
 
 class QuestionCard extends Component {
 
@@ -10,9 +11,11 @@ class QuestionCard extends Component {
     super(props);
     this.state = {
       submitTextOpen: false,
-      answerText: ''
+      answerText: '',
+      showAnswersIsOpen: false
     }
     this.onAddTextClicked = this.onAddTextClicked.bind(this);
+    this.toggleShowComments = this.toggleShowComments.bind(this);
   }
 
   onYesClicked(event){
@@ -32,10 +35,17 @@ class QuestionCard extends Component {
   }
 
   submitTextComment(event){
-    console.log("wtf?")
-
     event.preventDefault()
     this.props.addTextToAnswer(this.props.question.question_id, this.props.userid, this.state.answerText)
+    this.setState({
+      answerText: ''
+    })
+  }
+
+  toggleShowComments(){
+    this.setState({
+      showAnswersIsOpen: !this.state.showAnswersIsOpen
+    })
   }
 
   render() {
@@ -44,11 +54,12 @@ class QuestionCard extends Component {
     const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
     const yesAnswers = answers.filter(answer => answer.is_yes === true).length
     const noAnswers = answers.filter(answer => answer.is_yes === false).length
+    const textComments = answers.filter(answer => answer.text !== "")
     var yesPercentage;
     var noPercentage;
 
     console.log(userAnswer)
-    console.log(userAnswer.text)
+    console.log(textComments)
     if (answers.length === 0){
       yesPercentage = 0;
       noPercentage = 0;
@@ -82,11 +93,12 @@ class QuestionCard extends Component {
     }
 
     const submitTextForm = (<form onSubmit={event => this.submitTextComment(event)} className='submitText-form'>
-      <div>Text:</div>
+      <div>Your Answer:</div>
       <input
         className='form-control'
         onChange={({ target }) => this.setState({ answerText: target.value })}
         style={{ marginBottom: 10 }}
+        value={this.state.answerText}
       />
       <button
         className='btn btn-primary'
@@ -105,7 +117,11 @@ class QuestionCard extends Component {
               <button className='btn btn-danger' disabled={disableNo} onClick={event => this.onNoClicked(event)}>No</button>
             </div>
             {userAnswer.length !== 0 ?
-               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide" : "Add Text"}</div>
+               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide Submit" : "Add Text"}</div>
+               : null
+            }
+            {userAnswer.length !== 0 ?
+               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.toggleShowComments}>{this.state.showAnswersIsOpen ? "Hide Answers" : "Show Answers"}</div>
                : null
             }
           </div>
@@ -118,7 +134,10 @@ class QuestionCard extends Component {
             <Doughnut data={chartData} options={{responsive: false, maintainAspectRatio: false, legend: {display: false}}} />
           </div>
         </div>
-        {this.state.submitTextOpen ? submitTextForm: null}
+        <div className='text-answers'>
+          {this.state.submitTextOpen ? submitTextForm: null}
+          {this.state.showAnswersIsOpen ? <CommentList answers={textComments} /> : null}
+        </div>
       </div>
     )
   }
