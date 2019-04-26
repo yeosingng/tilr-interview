@@ -83,7 +83,6 @@ class QuestionCard extends Component {
         noStyle = {opacity: 1}
       }
       prevComment = userAnswer[0].comment
-      console.log(prevComment)
     }
 
     const chartData = {
