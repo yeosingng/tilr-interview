@@ -12,7 +12,8 @@ class QuestionCard extends Component {
     this.state = {
       submitTextOpen: false,
       answerText: '',
-      showCommentsIsOpen: false
+      showCommentsIsOpen: false,
+      prevComment: ''
     }
     this.onAddTextClicked = this.onAddTextClicked.bind(this);
     this.toggleShowComments = this.toggleShowComments.bind(this);
@@ -61,6 +62,7 @@ class QuestionCard extends Component {
     var disableNo = false
     var yesStyle = {marginRight: 10}
     var noStyle = {}
+    var prevComment;
 
     if (answers.length === 0){
       yesPercentage = 0;
@@ -80,6 +82,8 @@ class QuestionCard extends Component {
         yesStyle = {opacity: 0.4, marginRight: 8}
         noStyle = {opacity: 1}
       }
+      prevComment = userAnswer[0].comment
+      console.log(prevComment)
     }
 
     const chartData = {
@@ -96,7 +100,8 @@ class QuestionCard extends Component {
     }
 
     const submitTextForm = (<form onSubmit={event => this.submitTextComment(event)} className='submitText-form'>
-      <div>Your Comment:</div>
+      {prevComment !== null ? <div className='prev-comment'>Your Previous Comment: {prevComment}</div> : null}
+      <div>New Comment:</div>
       <input
         className='form-control'
         onChange={({ target }) => this.setState({ answerText: target.value })}
@@ -106,7 +111,7 @@ class QuestionCard extends Component {
       <button
         className='btn btn-primary'
       >
-      Submit
+      {prevComment !== null ? "Update" : "Submit"}
       </button>
     </form>)
 
