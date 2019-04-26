@@ -1,0 +1,14 @@
+Implemented:
+- User Creation and login
+  - Created a basic user creation and verification system
+  - changed user db to take salts and hash instead of plaintext
+- Question page
+  - Yes and No buttons update db accordingly with a vote
+    - After voting, users can optionally add an anonymous text comment for the question
+  - Users can show or hide comments for each question
+  - Votes are displayed using chartjs and react-countup
+    - Users can visually see a donut graph, can hover over graph for aggregate votes
+    - Questions also show Yes and No votes as percentages
+- User page
+  - Nav bar additionally has a tab for a user's homepage
+  - On this page, only the questions that a user has already voted on is displayed
