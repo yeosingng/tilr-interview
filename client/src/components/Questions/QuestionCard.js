@@ -55,7 +55,7 @@ class QuestionCard extends Component {
     const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
     const yesAnswers = answers.filter(answer => answer.is_yes === true).length
     const noAnswers = answers.filter(answer => answer.is_yes === false).length
-    const textComments = answers.filter(answer => answer.comment !== "")
+    const textComments = answers.filter(answer => answer.comment !== null)
     var yesPercentage
     var noPercentage
     var disableYes = false
@@ -113,8 +113,6 @@ class QuestionCard extends Component {
       {prevComment !== null ? "Update" : "Submit"}
       </button>
     </form>)
-
-    console.log()
 
     return (
       <div className='card'>
