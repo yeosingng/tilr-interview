@@ -14,6 +14,8 @@ class QuestionList extends Component {
   render() {
     const isLoggedIn = this.props.isLoggedIn
 
+    console.log(this.props.history)
+
     if (isLoggedIn){
       return (
         <div className='question-list'>
