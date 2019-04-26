@@ -55,8 +55,12 @@ class QuestionCard extends Component {
     const yesAnswers = answers.filter(answer => answer.is_yes === true).length
     const noAnswers = answers.filter(answer => answer.is_yes === false).length
     const textComments = answers.filter(answer => answer.comment !== "")
-    var yesPercentage;
-    var noPercentage;
+    var yesPercentage
+    var noPercentage
+    var disableYes = false
+    var disableNo = false
+    var yesStyle = {marginRight: 10}
+    var noStyle = {}
 
     if (answers.length === 0){
       yesPercentage = 0;
@@ -66,14 +70,15 @@ class QuestionCard extends Component {
       noPercentage = (noAnswers / answers.length) * 100;
     }
 
-    var disableYes = false
-    var disableNo = false
-
     if (userAnswer.length !== 0) {
       if (userAnswer[0].is_yes){
         disableYes = true
+        yesStyle = {opacity: 1, marginRight: 8}
+        noStyle = {opacity: 0.4}
       } else {
         disableNo = true
+        yesStyle = {opacity: 0.4, marginRight: 8}
+        noStyle = {opacity: 1}
       }
     }
 
@@ -91,7 +96,7 @@ class QuestionCard extends Component {
     }
 
     const submitTextForm = (<form onSubmit={event => this.submitTextComment(event)} className='submitText-form'>
-      <div>Your Answer:</div>
+      <div>Your Comment:</div>
       <input
         className='form-control'
         onChange={({ target }) => this.setState({ answerText: target.value })}
@@ -113,14 +118,31 @@ class QuestionCard extends Component {
           <div className='card-content'>
             <h5 className='card-title'>{question.text}</h5>
             <div className='button-container'>
-              <button className='btn btn-success' disabled={disableYes} style={{ marginRight: 10 }} onClick={event => this.onYesClicked(event)}>Yes</button>
-              <button className='btn btn-danger' disabled={disableNo} onClick={event => this.onNoClicked(event)}>No</button>
+              <button className='btn btn-success'
+                      disabled={disableYes}
+                      style={yesStyle}
+                      onClick={event => this.onYesClicked(event)}>
+              Yes
+              </button>
+              <button className='btn btn-danger'
+                      style={noStyle}
+                      disabled={disableNo}
+                      onClick={event => this.onNoClicked(event)}>
+              No
+              </button>
             </div>
             {userAnswer.length !== 0 ?
-               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide Submit" : "Add Comment"}</div>
+               <div className="" style={{ marginTop: 8, color: '#007bff' }}
+                    onClick={this.onAddTextClicked}>
+               {this.state.submitTextOpen ? "Hide Submit" : "Add Comment"}
+               </div>
                : null
             }
-            <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.toggleShowComments}>{this.state.showCommentsIsOpen ? "Hide Comments" : "Show Comments"}</div>
+            <div className=""
+                 style={{ marginTop: 10, color: '#007bff' }}
+                 onClick={this.toggleShowComments}>
+            {this.state.showCommentsIsOpen ? "Hide Comments" : "Show Comments"}
+            </div>
           </div>
           <div className='filler'></div>
           <div className='data-container'>
@@ -128,7 +150,8 @@ class QuestionCard extends Component {
               <CountUp start={0} end={yesPercentage} style={{ marginBottom: 10 }} prefix="Yes: " suffix="%" />
               <CountUp start={0} end={noPercentage} prefix="No: " suffix="%"/>
             </div>
-            <Doughnut data={chartData} options={{responsive: false, maintainAspectRatio: false, legend: {display: false}}} />
+            <Doughnut data={chartData}
+                      options={{responsive: false, maintainAspectRatio: false, legend: {display: false}}} />
           </div>
         </div>
         <div className='text-answers'>
