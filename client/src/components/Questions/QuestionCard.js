@@ -12,7 +12,7 @@ class QuestionCard extends Component {
     this.state = {
       submitTextOpen: false,
       answerText: '',
-      showAnswersIsOpen: false
+      showCommentsIsOpen: false
     }
     this.onAddTextClicked = this.onAddTextClicked.bind(this);
     this.toggleShowComments = this.toggleShowComments.bind(this);
@@ -44,7 +44,7 @@ class QuestionCard extends Component {
 
   toggleShowComments(){
     this.setState({
-      showAnswersIsOpen: !this.state.showAnswersIsOpen
+      showCommentsIsOpen: !this.state.showCommentsIsOpen
     })
   }
 
@@ -54,12 +54,10 @@ class QuestionCard extends Component {
     const userAnswer = answers.filter(answer => answer.user_id === this.props.userid)
     const yesAnswers = answers.filter(answer => answer.is_yes === true).length
     const noAnswers = answers.filter(answer => answer.is_yes === false).length
-    const textComments = answers.filter(answer => answer.text !== "")
+    const textComments = answers.filter(answer => answer.comment !== "")
     var yesPercentage;
     var noPercentage;
 
-    console.log(userAnswer)
-    console.log(textComments)
     if (answers.length === 0){
       yesPercentage = 0;
       noPercentage = 0;
@@ -107,6 +105,8 @@ class QuestionCard extends Component {
       </button>
     </form>)
 
+    console.log()
+
     return (
       <div className='card'>
         <div className='card-body'>
@@ -117,13 +117,10 @@ class QuestionCard extends Component {
               <button className='btn btn-danger' disabled={disableNo} onClick={event => this.onNoClicked(event)}>No</button>
             </div>
             {userAnswer.length !== 0 ?
-               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide Submit" : "Add Text"}</div>
+               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.onAddTextClicked}>{this.state.submitTextOpen ? "Hide Submit" : "Add Comment"}</div>
                : null
             }
-            {userAnswer.length !== 0 ?
-               <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.toggleShowComments}>{this.state.showAnswersIsOpen ? "Hide Answers" : "Show Answers"}</div>
-               : null
-            }
+            <div className="" style={{ marginTop: 10, color: '#007bff' }} onClick={this.toggleShowComments}>{this.state.showCommentsIsOpen ? "Hide Comments" : "Show Comments"}</div>
           </div>
           <div className='filler'></div>
           <div className='data-container'>
@@ -136,7 +133,7 @@ class QuestionCard extends Component {
         </div>
         <div className='text-answers'>
           {this.state.submitTextOpen ? submitTextForm: null}
-          {this.state.showAnswersIsOpen ? <CommentList answers={textComments} /> : null}
+          {this.state.showCommentsIsOpen ? <CommentList answers={textComments} /> : null}
         </div>
       </div>
     )

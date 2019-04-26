@@ -68,13 +68,8 @@ router.put('/questions/answers/text', async (req, res) => {
     const user_id = body.user_id
     const answerText = body.answer_text
 
-    console.log("aaaaaaaaaaaaaaaa")
-    console.log(question_id)
-    console.log(user_id)
-    console.log(answerText)
-
     const answer = await knex('answers').where({question_id : question_id, user_id: user_id})
-                                        .update({text: answerText})
+                                        .update({comment: answerText})
 
     const answers = await knex.select().table('answers')
     res.json(answers)

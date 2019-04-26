@@ -14,7 +14,7 @@ exports.up = function (knex) {
       .boolean('is_yes')
       .notNullable()
     table
-      .string("text")
+      .string("comment")
     table
       .unique(['question_id', 'user_id'])
   })
